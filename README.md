@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+### O boilerplate foi criado com objetivo de fornecer uma estrutura básica para criação de projetos React+TypeScript+Vite com suporte as bibliotecas de testes `Jest` e `React Testing Library`. Além disso, o mesmo já vem com `relative paths` e o `prettier` configurados.
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Clonando
+O comando abaixo permite obter apenas conteúdo do repositório. Ou seja, nada relacionado ao versionamento(branchs, histórico de commits e referência ao repositório remoto) será baixado.
 
-Currently, two official plugins are available:
+`npx degit https://github.com/thalya-codes/boilerplate-react-vite-jest-rtl#main`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+[Mais informações sobre o `degit`](https://medium.com/@vuelancer/replacement-for-git-clone-degit-64b88dcfff4e)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
+###  Comandos
+`npm i` : Instala os pacotes
 
-- Configure the top-level `parserOptions` property like this:
+`npm run dev` : Roda o projeto
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+`npm run test` : Roda os testes
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Customização
+ #### Adicionando novos alias
+ Para modificar ou adicionar outros caminhos relativos, basta seguir o passo a passo abaixo.
+
+  1) No arquivo `vite.config.ts`, em `alias`, adicione um conjunto de chave e valor. Onde a chave será o nome do atalho para aquela pasta e o valor o caminho relativo para a mesma. 
+  
+      ```js
+        export default defineConfig({
+            resolve: {
+              alias: {
+              '@': path.resolve('src'),
+              '@assets': path.resolve('src/assets') 
+              },
+            },
+            plugins: [react()],
+          });
+
+      ```
+
+      O exemplo acima demonstra um cenário onde temos uma pasta `assets` dentro da pasta `src`.
+
+
+2) No arquivo `tsconfig.node.json`, em `paths`, adicione um novo conjunto de chave e valor, seguindo a seguinte sintaxe:
+ 
+    `"atalho/*": ["caminho-relativo/*"]`
+
+    ```js
+      "paths": {
+        "@assets/": ["src/assets/*"]
+      }
+    ```
